@@ -1,0 +1,23 @@
+#app{
+
+}
+
+#table {
+  background-color: darkkhaki;
+  border-style: solid;
+}
+
+#row{
+  border-style: solid;
+}
+
+.cell{
+  border-style: solid;
+  width: 1cm;
+  height: 1cm;
+  text-align: center;
+}
+
+/* td{
+ border-style: solid;
+} */

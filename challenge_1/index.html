@@ -1,2 +1,34 @@
-
+<head>
+  <script src='./app.js'></script>
+  <link rel='stylesheet' href='styles.css'>
+</head>
+<body>
+  <div id='app'>
+    <table id='table'>
+      <thead>
+          <tr>
+              <th colspan="2">The table header</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr id='row'>
+              <td class='cell' id='A1' onclick=cellClickHandler(id)></td>
+              <td class='cell' id='A2' onclick=cellClickHandler(id)></td>
+              <td class='cell' id='A3' onclick=cellClickHandler(id)></td>
+          </tr>
+          <tr id='row'>
+            <td class='cell' id='B1' onclick=cellClickHandler(id)></td>
+            <td class='cell' id='B2' onclick=cellClickHandler(id)></td>
+            <td class='cell' id='B3' onclick=cellClickHandler(id)></td>
+        </tr>
+        <tr class='row'>
+          <td class='cell' id='C1' onclick=cellClickHandler(id)></td>
+          <td class='cell' id='C2' onclick=cellClickHandler(id)></td>
+          <td class='cell' id='C3' onclick=cellClickHandler(id)></td>
+      </tr>
+      </tbody>
+    </table>
+    <button id='new-game' onclick="newGameHandler()">New Game</button>
+  </div>
+</body>
 
