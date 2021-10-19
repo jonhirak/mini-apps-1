@@ -1,9 +1,9 @@
 #app{
-
+ align-self: center;
 }
 
 #table {
-  background-color: darkkhaki;
+  background-color: rgb(136, 211, 225);
   border-style: solid;
 }
 
@@ -18,6 +18,6 @@
   text-align: center;
 }
 
-/* td{
- border-style: solid;
-} */
+#new-game{
+
+}

@@ -17,7 +17,8 @@ var translator = {
 }
 
 var tracker = {
-  turn: 'X'
+  turn: 'X',
+  gameover: false
 }
 
 
@@ -25,24 +26,17 @@ var tracker = {
 var cellClickHandler = (id) => {
   var cell = document.getElementById(id)
 
-  console.log(JSON.stringify(translator))
-  // console.log(cell.innerHTML)
   if (!cell.innerHTML) {
     cell.innerHTML = tracker.turn;
 
     var indeces = translator[id];
-    console.log('TEST1: ' + board[indeces[0]][indeces[1]])
     board[indeces[0]][indeces[1]] = tracker.turn;
-    console.log('TEST2: ' + board[indeces[0]][indeces[1]])
-
 
     tracker.turn === 'X' ? tracker.turn = 'O': tracker.turn = 'X';
 
-    console.log(board)
-    //check if won or tied
-    // debugger;
     rowChecker()
     columnChecker()
+    diagonalChecker()
     tieChecker()
   }
 }
@@ -59,102 +53,142 @@ var newGameHandler = () => {
   for (var key in cells) {
     cells[key].innerHTML = null;
   }
+
+  tracker.gameover = false;
 }
 
 var rowChecker = () => {
-  //check for rows
-  // debugger;
-  for (var i = 0; i < board.length; i ++) {
-    var row = board[i];
-    var consecutive = true;
-    var first;
-    for (var j = 0; j < row.length; j ++) {
-      var cell = row[j];
+  if (!tracker.gameover) {
+    for (var i = 0; i < board.length; i ++) {
+      var row = board[i];
+      var consecutive = true;
+      var first;
+      for (var j = 0; j < row.length; j ++) {
+        var cell = row[j];
 
-      if (cell !== null) {
-        if (!first) {
-          first = cell;
-        } else if (cell !== first) {
+        if (cell !== null) {
+          if (!first) {
+            first = cell;
+          } else if (cell !== first) {
+            consecutive = false;
+        }
+        } else {
           consecutive = false;
-       }
-      } else {
-        consecutive = false;
+          break;
+        }
+      }
+
+      if (consecutive === true) {
+        alert(`${first} wins!`)
+        tracker.gameover = true;
         break;
       }
-    }
 
-    if (consecutive === true) {
-      alert(`${first} wins!`)
-      break;
+      first = null;
     }
-
-    first = null;
   }
-  // if (board)
 }
 
 var columnChecker = () => {
-  var columns = {
-    1: [],
-    2: [],
-    3: []
-  }
 
-  for (var i = 0; i < board.length; i ++) {
-    var row = board[i];
-    for (var j = 0; j < board.length; j ++) {
-      var cell = row[j];
-
-      columns[j + 1].push(cell)
+  if (!tracker.gameover) {
+    var columns = {
+      1: [],
+      2: [],
+      3: []
     }
-  }
 
-  console.log(JSON.stringify(columns))
+    for (var i = 0; i < board.length; i ++) {
+      var row = board[i];
+      for (var j = 0; j < board.length; j ++) {
+        var cell = row[j];
 
-  for (var key in columns) {
-    var column = columns[key];
-    var consecutive = true;
-    var first;
-
-    for (var i = 0; i < column.length; i ++) {
-      var cell = column[i];
-
-      if (cell !== null) {
-        if (!first) {
-          first = cell;
-        } else if (cell !== first) {
-          consecutive = false;
-       }
-      } else {
-        consecutive = false;
-        break;
+        columns[j + 1].push(cell)
       }
     }
-    if (consecutive === true) {
-      alert(`${first} wins!`)
-      break;
+
+    for (var key in columns) {
+      var column = columns[key];
+      var consecutive = true;
+      var first;
+
+      for (var i = 0; i < column.length; i ++) {
+        var cell = column[i];
+
+        if (cell !== null) {
+          if (!first) {
+            first = cell;
+          } else if (cell !== first) {
+            consecutive = false;
+        }
+        } else {
+          consecutive = false;
+          break;
+        }
+      }
+      if (consecutive === true) {
+        tracker.gameover = true;
+        alert(`${first} wins!`)
+        break;
+      }
+
+      first = null;
+    }
+  }
+}
+
+var diagonalChecker = () => {
+  if (!tracker.gameover) {
+    var diagonals = {
+      major: [],
+      minor: []
     }
 
-    first = null;
+    for (var i = 0; i < board.length; i ++) {
+      var row = board[i];
+      var consecutive = true;
+      var first;
+      for (var j = 0; j < row.length; j ++) {
+        var cell = row[j];
+
+        if ((i === 0 && j === 0) || (i === 2 && j === 2)) {
+          diagonals.major.push(cell);
+        } else if ((i === 0 && j === 2) || (i === 2 && j === 0)) {
+          diagonals.minor.push(cell);
+        } else if (i === 1 && j === 1) {
+          diagonals.major.push(cell);
+          diagonals.minor.push(cell);
+        }
+      }
+    }
+
+    if (JSON.stringify(diagonals.major) === JSON.stringify(['X', 'X', 'X']) || JSON.stringify(diagonals.minor) === JSON.stringify(['X', 'X', 'X'])) {
+      tracker.gameover = true;
+      alert('X wins!')
+    } else if (JSON.stringify(diagonals.major) === JSON.stringify(['O', 'O', 'O']) || JSON.stringify(diagonals.minor) === JSON.stringify(['O', 'O', 'O'])) {
+      tracker.gameover = true;
+      alert('O wins!')
+    }
   }
 }
 
 var tieChecker = () => {
-  // debugger;
-  var tied = true;
+  if (!tracker.gameover) {
+    var tied = true;
 
-  for (var i = 0; i < board.length; i ++) {
-    var row = board[i];
-    for (var j = 0; j < row.length; j ++) {
-      var cell = row[j];
-      if (cell === null) {
-        tied = false;
-        break;
+    for (var i = 0; i < board.length; i ++) {
+      var row = board[i];
+      for (var j = 0; j < row.length; j ++) {
+        var cell = row[j];
+        if (cell === null) {
+          tied = false;
+          break;
+        }
       }
     }
-  }
 
-  if (tied === true) {
-    alert('Tied! Try Again!')
+    if (tied === true) {
+      alert('Tied! Try Again!')
+    }
   }
 }
