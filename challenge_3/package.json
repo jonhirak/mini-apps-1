@@ -1,0 +1,34 @@
+{
+  "name": "mini-apps",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "jquery": "^3.6.0",
+    "mysql2": "^2.3.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "@babel/preset-react": "^7.14.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "babel": "npx babel client --out-dir public -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonhirak/hr-sfo138-mini-apps-1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jonhirak/hr-sfo138-mini-apps-1/issues"
+  },
+  "homepage": "https://github.com/jonhirak/hr-sfo138-mini-apps-1#readme"
+}

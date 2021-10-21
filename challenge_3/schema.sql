@@ -1,0 +1,25 @@
+DROP DATABASE checkout;
+
+CREATE DATABASE checkout;
+
+USE checkout;
+
+CREATE TABLE records (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(20) DEFAULT NULL,
+  email VARCHAR(30) DEFAULT NULL,
+  password VARCHAR(20) DEFAULT NULL,
+  address VARCHAR(20) DEFAULT NULL,
+  city VARCHAR(20) DEFAULT NULL,
+  state VARCHAR(20) DEFAULT NULL,
+  zip VARCHAR(20) DEFAULT NULL,
+  phoneNumber VARCHAR(20) DEFAULT NULL)
+  ;
+
+SELECT * FROM records;
+
+
+
+
+
+DELETE from records where id
